@@ -78,7 +78,7 @@ class EmprendedorController extends Controller
     {
         $request->validate([
             'name' => 'required|max:255',
-            'slug' => 'required|max:255|unique:categories,slug,' . $Emprendedor->id,
+            'slug' => 'required|max:255|unique:Emprendedors,slug,' . $Emprendedor->id,
 
         ]);
 
