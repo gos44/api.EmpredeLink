@@ -9,73 +9,93 @@ use Illuminate\Routing\Controller;
 class EmprendedorController extends Controller
 {
 
-    public function creates()
-    {
-        return view('emprender.emprendedor');
-    }
-    
-    public function store(Request $request)
-    { 
-        $emprendedor = new Emprendedor();
-        $emprendedor->name = $request->name;
-        $emprendedor->lastname = $request->lastname;
-        $emprendedor->fecha_nacimiento = $request->fecha_nacimiento;
-        $emprendedor->password = $request->password;
-        $emprendedor->telefono = $request->telefono;
-        $emprendedor->imagen = $request->imagen;
-        $emprendedor->correo = $request->correo;
-        $emprendedor->ubicacion = $request->ubicacion;
-        $emprendedor->numero = $request->numero;
-
-        $emprendedor = User::all();
-       
-       
-        return view('role_user.asociar',compact('users','roles'));
-        $emprendedor->save();
-
-        return redirect()->route('emprendedor.index');
-    }
-
+   /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $emprendedores = Emprendedor::all();
-        return view('emprender.listar', ['emprendedores' => $emprendedores]);
-    }
-    
-    public function show(Emprendedor $emprendedor)
-    {
-        return view('emprender.show', compact('emprendedor'));
-    }
-
-    public function destroy(Emprendedor $emprendedor)
-    {
-        $emprendedor->delete();
-        return redirect()->route('emprendedor.index');
+        $Emprendedors=Emprendedor::all();
+        //$categories = Category::included()->get();
+        //$categories=Category::included()->filter();
+        //$categories=Category::included()->filter()->sort()->get();
+        //$categories=Category::included()->filter()->sort()->getOrPaginate();
+        return response()->json($Emprendedors);
     }
 
-    public function edit(Emprendedor $emprendedor)
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
     {
-        return view('emprender.edit', compact('emprendedor'));
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'fecha_nacimiento'=> 'required|max:255',
+            'password'=> 'required|max:255',
+            'telefono'=> 'required|max:255',
+            'correo'=> 'required|max:255',
+            'ubicacion'=> 'required|max:255'
+        ]);
+
+        $Emprendedor = Emprendedor::create($request->all());
+
+        return response()->json($Emprendedor);
     }
 
-    public function update(Request $request, Emprendedor $emprendedor)
-    {
-        $emprendedor->name = $request->name;
-        $emprendedor->lastname = $request->lastname;
-        $emprendedor->fecha_nacimiento = $request->fecha_nacimiento;
-        $emprendedor->password = $request->password;
-        $emprendedor->telefono = $request->telefono;
-        $emprendedor->imagen = $request->imagen;
-        $emprendedor->correo = $request->correo;
-        $emprendedor->ubicacion = $request->ubicacion;
-        $emprendedor->numero = $request->numero;
-        $emprendedor->save();
-        return redirect()->route('emprendedor.index');
-    }
-    public function navigation()
-    {
-        return view('emprender.navigation');
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) //si se pasa $id se utiliza la comentada
+    {  
+        
+       // $category = Category::findOrFail($id);
+        // $category = Category::with(['posts.user'])->findOrFail($id);
+        // $category = Category::with(['posts'])->findOrFail($id);
+        // $category = Category::included();
+        $Emprendedor = Emprendedor::included()->findOrFail($id);
+        return response()->json($Emprendedor);
+        //http://api.codersfree1.test/v1/categories/1/?included=posts.user
+
     }
 
-    
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Emprendedor $Emprendedor)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'slug' => 'required|max:255|unique:categories,slug,' . $Emprendedor->id,
+
+        ]);
+
+        $Emprendedor->update($request->all());
+
+        return response()->json($Emprendedor);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Emprendedor $Emprendedor)
+    {
+        $Emprendedor->delete();
+        return response()->json($Emprendedor);
+    }
 }

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('correo');
             $table->string('ubicacion');
             $table->integer('numero'); 
-       
+            $table->rememberToken();
             $table->timestamps();
         });
     }
