@@ -8,6 +8,8 @@ use App\Http\Controllers\ResenaController;
 use App\Http\Controllers\InversionistaController;
 use App\Http\Controllers\PublicarEmprendimientoController;
 use App\Http\Controllers\ConexionController;
+use App\Models\Inversionista;
+
 //use App\Http\Controllers\Api\RegisterController;
 //use App\Http\Controllers\Api\CategoryController;
 
@@ -22,12 +24,14 @@ use App\Http\Controllers\ConexionController;
 | be assigned to the "api" middleware group. Make something great!
 |
 */
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
-
-    // Route::get('/prueba', function () {
-    //     return 'prueba';
-    // });
+    Route::get('/prueba', function () {
+        return 'prueba';
+    });
     
     // Route::post('register', [RegisterController::class,'store'])->name('api.v1.registrer');
     // Route::post('register', [RegisterController::class,'store'])->name('api.v1.registrer');
@@ -83,6 +87,15 @@ Route::put('resena/{resena}',[ResenaController::class,'update'])->name('resena.u
 Route::delete('resena/{resena}',[ResenaController::class,'destroy'])->name('resena.destroy');
 Route::get('resena/{resena}/editar',[ResenaController::class,'edit'])->name('resena.edit');
 
+
+
+Route::prefix('api')->group(function () {
+    Route::get('inversionistas', [InversionistaController::class, 'index'])->name('api.inversionistas.index');
+    Route::post('inversionistas', [InversionistaController::class, 'store'])->name('api.inversionistas.store');
+    Route::get('inversionistas/{inversionista}', [InversionistaController::class, 'show'])->name('api.inversionistas.show');
+    Route::put('inversionistas/{inversionista}', [InversionistaController::class, 'update'])->name('api.inversionistas.update');
+    Route::delete('inversionistas/{inversionista}', [InversionistaController::class, 'destroy'])->name('api.inversionistas.destroy');
+});
 
 Route::get('inversionistas/create', [InversionistaController::class, 'create'])->name('inversionistas.create');
 Route::post('inversionistas/store', [InversionistaController::class, 'store'])->name('inversionistas.store');

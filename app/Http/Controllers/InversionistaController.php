@@ -2,65 +2,81 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Controller;
 use App\Models\Inversionista;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
 
 class InversionistaController extends Controller
 {
     public function index()
     {
-        $inversionistas = Inversionista::orderBy('id', 'desc')->get();
-        return view('registrosL', compact('inversionistas'));
+        $inversionistas = Inversionista::all(); 
+        // Puedes usar filtros, ordenamientos, etc. como se muestra en los ejemplos comentados:
+        $inversionistas = Inversionista::included()->get();
+        $inversionistas = Inversionista::included()->filter();
+        $inversionistas = Inversionista::included()->filter()->sort()->get();
+        $inversionistas = Inversionista::included()->filter()->sort()->getOrPaginate();
+
+        return response()->json($inversionistas);
     }
 
     public function create()
     {
-        return view('inversionistaC');
+        return view('Inversionista.inversionistaC');
     }
 
     public function store(Request $request)
     {
-        $inversionista = new Inversionista();
-        $inversionista->name = $request->name;
-        $inversionista->lastname = $request->lastname;
-        $inversionista->Nacimiento = $request->Nacimiento;
-        $inversionista->telefono = $request->telefono;
-        $inversionista->contraseña = $request->contraseña;
-        $inversionista->correo = $request->correo;
-        $inversionista->ubicacion = $request->ubicacion;
+        $request->validate([
+            'name' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'Nacimiento' => 'required|date',
+            'telefono' => 'required|max:20',
+            'contraseña' => 'required|min:8',
+            'correo' => 'required|email|unique:inversionistas',
+            'ubicacion' => 'required|max:255',
+        ]);
 
-        $inversionista->save();
+        $inversionista = Inversionista::create($request->all());
+        return response()->json($inversionista);
+    }
 
-        return redirect()->route('inversionistas.index');
+    public function show($id)
+    {
+        // Se pueden incluir relaciones en la consulta, como se muestra en los ejemplos comentados:
+        $inversionista = Inversionista::with(['relacion1', 'relacion2'])->findOrFail($id);
+        $inversionista = Inversionista::included()->findOrFail($id);
+        
+        $inversionista = Inversionista::findOrFail($id);
+        return response()->json($inversionista);
+        // Ejemplo de ruta: http://api.ejemplo.test/v1/inversionistas/1/?included=relacion1,relacion2
+    }
+
+    public function edit(Inversionista $inversionista)
+    {
+        return view('Inversionista.edit', compact('inversionista'));
+    }
+
+    public function update(Request $request, Inversionista $inversionista)
+    {
+        $request->validate([
+            'name' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'Nacimiento' => 'required|date',
+            'telefono' => 'required|max:20',
+            'contraseña' => 'required|min:8',
+            'correo' => 'required|email|unique:inversionistas,correo,' . $inversionista->id,
+            'ubicacion' => 'required|max:255',
+        ]);
+
+        $inversionista->update($request->all());
+        return response()->json($inversionista);
     }
 
     public function destroy(Inversionista $inversionista)
     {
         $inversionista->delete();
-        return redirect()->route('inversionistas.index');
-    }
-
-    public function show(Inversionista $inversionista)
-    {
-        return view('show', compact('inversionista'));
-    }
-    public function edit (inversionista $inversionista){
-
-        return view('edit',compact('inversionista'));
-
-    }
-    public function update(Request $request,inversionista $inversionista ){
-        
-        $inversionista->name = $request->name;
-        $inversionista->lastname = $request->lastname;
-        $inversionista->Nacimiento = $request->Nacimiento;
-        $inversionista->telefono = $request->telefono;
-        $inversionista->contraseña = $request->contraseña;
-        $inversionista->correo = $request->correo;
-        $inversionista->ubicacion = $request->ubicacion;
-        $inversionista->save();
-        return redirect()->route('inversionistas.index');
-
+        return response()->json($inversionista);
     }
 }
+
