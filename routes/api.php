@@ -1,15 +1,11 @@
 <?php
 
+use App\Http\Controllers\Api\EmprendimientoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmprendedorController;
-<<<<<<< HEAD
-use App\Http\Controllers\Api\EmprendimientoController;
-use App\Http\Controllers\ResenaController; 
-=======
-use App\Http\Controllers\EmprendimientoController;
+use App\Http\Controllers\Api\EmprendedorController;
+
 use App\Http\Controllers\Api\ResenaController; 
->>>>>>> efdec31586b2b8728320849604d7126725c03b44
 use App\Http\Controllers\Api\InversionistaController;
 use App\Http\Controllers\Api\PublicarEmprendimientoController;
 use App\Http\Controllers\ConexionController;
@@ -43,11 +39,11 @@ Route::get('/prueba', function () {
 
 //emprendimiento
 
-Route::get('emprendimientos', [EmprendimientoController::class, 'index'])->name('emprendimientos.index');
-Route::post('emprendimientos', [EmprendimientoController::class, 'store'])->name('emprendimientos.store');
-Route::get('emprendimientos/{id}', [EmprendimientoController::class, 'show'])->name('emprendimientos.show');
-Route::put('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'update'])->name('emprendimientos.update');
-Route::delete('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'destroy'])->name('emprendimientos.destroy');
+Route::get('emprendimientos', [EmprendimientoController::class, 'index'])->name('api.emprendimientos.index');
+Route::post('emprendimientos', [EmprendimientoController::class, 'store'])->name('api.emprendimientos.store');
+Route::get('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'show'])->name('api.emprendimientos.show');
+Route::put('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'update'])->name('api.emprendimientos.update');
+Route::delete('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'destroy'])->name('api.emprendimientos.destroy');
 
 // Route::get('emprendimiento/create', [EmprendimientoController::class, 'creates']);
 // Route::post('emprendimiento/store', [EmprendimientoController::class, 'store'])->name('emprendimiento.store');
