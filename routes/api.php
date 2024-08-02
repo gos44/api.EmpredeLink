@@ -3,11 +3,12 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmprendedorController;
-use App\Http\Controllers\EmprendimientoController;
+use App\Http\Controllers\Api\EmprendimientoController;
 use App\Http\Controllers\ResenaController; 
 use App\Http\Controllers\Api\InversionistaController;
 use App\Http\Controllers\Api\PublicarEmprendimientoController;
 use App\Http\Controllers\ConexionController;
+
 use App\Models\Inversionista;
 use App\Models\Publicar_Emprendimiento;
 
@@ -37,13 +38,19 @@ Route::get('/prueba', function () {
 
 //emprendimiento
 
-Route::get('emprendimiento/create', [EmprendimientoController::class, 'creates']);
-Route::post('emprendimiento/store', [EmprendimientoController::class, 'store'])->name('emprendimiento.store');
-Route::get('emprendimientos/listar2', [EmprendimientoController::class, 'index'])->name('emprendimientos.index');
-Route::delete('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'destroy'])->name('emprendimiento.destroy');
-Route::get('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'show'])->name('emprendimiento.show');
-Route::put('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'update'])->name('emprendimiento.update');
-Route::get('emprendimiento/{emprendimiento}/editar', [EmprendimientoController::class, 'edit'])->name('emprendimiento.edit');
+Route::get('emprendimientos', [EmprendimientoController::class, 'index'])->name('emprendimientos.index');
+Route::post('emprendimientos', [EmprendimientoController::class, 'store'])->name('emprendimientos.store');
+Route::get('emprendimientos/{id}', [EmprendimientoController::class, 'show'])->name('emprendimientos.show');
+Route::put('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'update'])->name('emprendimientos.update');
+Route::delete('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'destroy'])->name('emprendimientos.destroy');
+
+// Route::get('emprendimiento/create', [EmprendimientoController::class, 'creates']);
+// Route::post('emprendimiento/store', [EmprendimientoController::class, 'store'])->name('emprendimiento.store');
+// Route::get('emprendimientos/listar2', [EmprendimientoController::class, 'index'])->name('emprendimientos.index');
+// Route::delete('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'destroy'])->name('emprendimiento.destroy');
+// Route::get('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'show'])->name('emprendimiento.show');
+// Route::put('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'update'])->name('emprendimiento.update');
+// Route::get('emprendimiento/{emprendimiento}/editar', [EmprendimientoController::class, 'edit'])->name('emprendimiento.edit');
 
 
 //plicar_emprendimiento k
