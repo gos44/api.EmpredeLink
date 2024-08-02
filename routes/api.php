@@ -4,7 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmprendedorController;
 use App\Http\Controllers\EmprendimientoController;
-use App\Http\Controllers\ResenaController; 
+use App\Http\Controllers\Api\ResenaController; 
 use App\Http\Controllers\Api\InversionistaController;
 use App\Http\Controllers\Api\PublicarEmprendimientoController;
 use App\Http\Controllers\ConexionController;
@@ -58,13 +58,13 @@ Route::get('emprendimiento/{emprendimiento}/editar', [EmprendimientoController::
 
 //reseñas
 
-Route::get('resena/create',[ResenaController::class,'create']);
-Route::post('resenas/store', [ResenaController::class,'store'])->name('resenas.store');
-Route::get('resena/listar',[ResenaController::class,'index'])->name('resena.index');
-Route::get('resena/{resena}',[ResenaController::class,'show'])->name('resena.show');
-Route::put('resena/{resena}',[ResenaController::class,'update'])->name('resena.update');//nuevo
-Route::delete('resena/{resena}',[ResenaController::class,'destroy'])->name('resena.destroy');
-Route::get('resena/{resena}/editar',[ResenaController::class,'edit'])->name('resena.edit');
+// Route::get('resena/create',[ResenaController::class,'create']);
+// Route::post('resenas/store', [ResenaController::class,'store'])->name('resenas.store');
+// Route::get('resena/listar',[ResenaController::class,'index'])->name('resena.index');
+// Route::get('resena/{resena}',[ResenaController::class,'show'])->name('resena.show');
+// Route::put('resena/{resena}',[ResenaController::class,'update'])->name('resena.update');//nuevo
+// Route::delete('resena/{resena}',[ResenaController::class,'destroy'])->name('resena.destroy');
+// Route::get('resena/{resena}/editar',[ResenaController::class,'edit'])->name('resena.edit');
 
 //inversionista
 
@@ -97,4 +97,9 @@ Route::get('publicar', [PublicarEmprendimientoController::class,'index'])->name(
  Route::get('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'show'])->name('api.publicar__emprendimientos.show');
  Route::put('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'update'])->name('api.publicar__emprendimientos.update');
  Route::delete('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'destroy'])->name('api.publicar__emprendimientos.delete');
-
+// api k
+ Route::get('resena', [ResenaController::class,'index'])->name('api.resenas.index');
+ Route::post('resena', [ResenaController::class,'store'])->name('api.resenas.store');
+ Route::get('resena/{resena}', [ResenaController::class,'show'])->name('api.resenas.show');
+ Route::put('resena/{resena}', [ResenaController::class,'update'])->name('api.resenas.update');
+ Route::delete('resena/{resena}', [ResenaController::class,'destroy'])->name('api.resenas.delete');

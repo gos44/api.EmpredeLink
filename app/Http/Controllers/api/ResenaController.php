@@ -1,56 +1,97 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Resena;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Controller as RoutingController;
 
-class ResenaController extends Controller
+class ResenaController extends RoutingController
 {
-    public function create()
-    {
-        return view('resena.create');
-    }
-
-    public function store(Request $request)
-    {
-        $resena = new resena();
-        $resena->qualification = $request->input('qualification');
-        $resena->comment = $request->input('comment');
-       
-        $resena->save();
-        return $resena;
-    }
-
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $resena = resena::orderBy('id', 'desc')->get();
-        return view('resena.listar', compact('resena'));
-    }
-    public function show(resena $resena) {
-        return view('resena.show', compact('resena'));
+        $resena=Resena::all();
+        // $categories = Category::included()->get();
+        // $categories=Category::included()->filter();
+        // $categories=Category::included()->filter()->sort()->get();
+        // $categories=Category::included()->filter()->sort()->getOrPaginate();
+        return response()->json($resena);
     }
 
-    public function destroy(resena $resena) {
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'qualification' => 'required|max:255',
+            'comment' => 'required|max:255',
+
+
+        ]);
+
+        $resena = Resena::create($request->all());
+
+        return response()->json($resena);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Categorie  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) //si se pasa $id se utiliza la comentada
+    {  
+        
+       // $category = Category::findOrFail($id);
+        // $category = Category::with(['posts.user'])->findOrFail($id);
+        // $category = Category::with(['posts'])->findOrFail($id);
+        // $category = Category::included();
+        $resena = Resena::included()->findOrFail($id);
+        return response()->json($resena);
+        //http://api.codersfree1.test/v1/categories/1/?included=posts.user
+
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Resena $resena)
+    {
+        $request->validate([
+            'qualification' => 'required|max:255',
+            'comment' => 'required|max:255' . $resena->id,
+
+        ]);
+
+        $resena->update($request->all());
+
+        return response()->json($resena);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Resena $resena)
+    {
         $resena->delete();
-        return redirect()->route('resena.index');
-    }
-
-    public function edit (resena $resena){
-    
-        return view ('resena.edit',compact('resena'));
-
-    }
-
-    public function update(Request $request,resena $resena ){
-
-       
-        $resena->qualification = $request->input('qualification');
-        $resena->comment = $request->input('comment');
-       
-        $resena->save();
-        return redirect()->route('resena.index');
-
+        return response()->json($resena);
     }
 }
