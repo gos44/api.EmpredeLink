@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Publicar_Emprendimiento;
@@ -9,61 +9,102 @@ use Illuminate\Routing\Controller as RoutingController;
 
 class PublicarEmprendimientoController extends RoutingController
 {
-    public function create()
-    {
-        return view('trabajo.tabla');
-    }
-
-    public function store(Request $request)
-    {
-        $trabajo = new Publicar_Emprendimiento();
-        $trabajo->name = $request->input('name');
-        $trabajo->last_name = $request->input('last_name');
-        $trabajo->phone_number = $request->input('phone_number');
-        $trabajo->mail = $request->input('mail');
-        $trabajo->description = $request->input('description');
-        $trabajo->location = $request->input('location');
-        $trabajo->url = $request->input('url');
-        $trabajo->date_exp = $request->input('date_exp');
-        $trabajo->save();
-        
-        return $trabajo;
-    }
-
+     /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
-        $trabajos = Publicar_Emprendimiento::orderBy('id', 'desc')->get();
-        return view('trabajo.listar', compact('trabajos'));
+        $publicar_emprendimiento=Publicar_Emprendimiento::all();
+        // $categories = Category::included()->get();
+        // $categories=Category::included()->filter();
+        // $categories=Category::included()->filter()->sort()->get();
+        // $categories=Category::included()->filter()->sort()->getOrPaginate();
+        return response()->json($publicar_emprendimiento);
     }
 
-    public function show(Publicar_Emprendimiento $trabajo) {
-        return view('trabajo.show', compact('trabajo'));
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+
+        $request->validate([
+            'name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'phone_number' => 'required|max:255',
+            'mail' => 'required|max:255',
+            'description' => 'required|max:255',
+            'location' => 'required|max:255',
+            'url' => 'required|max:255',
+            'date_exp' => 'required|max:255',
+
+
+        ]);
+
+        $publicar_emprendimiento = Publicar_Emprendimiento::create($request->all());
+
+        return response()->json($publicar_emprendimiento);
     }
 
-    public function destroy(Publicar_Emprendimiento $trabajo) {
-        $trabajo->delete();
-        return redirect()->route('trabajo.index');
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Categorie  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) //si se pasa $id se utiliza la comentada
+    {  
+        
+       // $category = Category::findOrFail($id);
+        // $category = Category::with(['posts.user'])->findOrFail($id);
+        // $category = Category::with(['posts'])->findOrFail($id);
+        // $category = Category::included();
+        $publicar_emprendimiento = Publicar_Emprendimiento::included()->findOrFail($id);
+        return response()->json($publicar_emprendimiento);
+        //http://api.codersfree1.test/v1/categories/1/?included=posts.user
+
     }
 
-    public function edit (Publicar_Emprendimiento $trabajo){
-    
-        return view ('trabajo.edit',compact('trabajo'));
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Publicar_Emprendimiento $publicar_emprendimiento)
+    {
+        $request->validate([
+           'name' => 'required|max:255',
+            'last_name' => 'required|max:255',
+            'phone_number' => 'required|max:255',
+            'mail' => 'required|max:255',
+            'description' => 'required|max:255',
+            'location' => 'required|max:255',
+            'url' => 'required|max:255',
+            'date_exp' => 'required|max:255' . $publicar_emprendimiento->id,
 
+        ]);
+
+        $publicar_emprendimiento->update($request->all());
+
+        return response()->json($publicar_emprendimiento);
     }
 
-    public function update(Request $request,Publicar_Emprendimiento $trabajo ){
-
-       
-        $trabajo->name = $request->input('name');
-        $trabajo->last_name = $request->input('last_name');
-        $trabajo->phone_number = $request->input('phone_number');
-        $trabajo->mail = $request->input('mail');
-        $trabajo->description = $request->input('description');
-        $trabajo->location = $request->input('location');
-        $trabajo->url = $request->input('url');
-        $trabajo->date_exp = $request->input('date_exp');
-        $trabajo->save();
-        return redirect()->route('trabajo.index');
-
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Publicar_Emprendimiento $publicar_emprendimiento)
+    {
+        $publicar_emprendimiento->delete();
+        return response()->json($publicar_emprendimiento);
     }
 }

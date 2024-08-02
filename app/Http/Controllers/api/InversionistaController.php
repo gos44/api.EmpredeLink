@@ -1,21 +1,22 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Inversionista;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller as RoutingController;
 
-class InversionistaController extends Controller
+class InversionistaController extends RoutingController
 {
     public function index()
     {
         $inversionistas = Inversionista::all(); 
         // Puedes usar filtros, ordenamientos, etc. como se muestra en los ejemplos comentados:
-        $inversionistas = Inversionista::included()->get();
-        $inversionistas = Inversionista::included()->filter();
-        $inversionistas = Inversionista::included()->filter()->sort()->get();
-        $inversionistas = Inversionista::included()->filter()->sort()->getOrPaginate();
+        // $inversionistas = Inversionista::included()->get();
+        // $inversionistas = Inversionista::included()->filter();
+        // $inversionistas = Inversionista::included()->filter()->sort()->get();
+        // $inversionistas = Inversionista::included()->filter()->sort()->getOrPaginate();
 
         return response()->json($inversionistas);
     }
@@ -44,8 +45,8 @@ class InversionistaController extends Controller
     public function show($id)
     {
         // Se pueden incluir relaciones en la consulta, como se muestra en los ejemplos comentados:
-        $inversionista = Inversionista::with(['relacion1', 'relacion2'])->findOrFail($id);
-        $inversionista = Inversionista::included()->findOrFail($id);
+        // $inversionista = Inversionista::with(['relacion1', 'relacion2'])->findOrFail($id);
+        // $inversionista = Inversionista::included()->findOrFail($id);
         
         $inversionista = Inversionista::findOrFail($id);
         return response()->json($inversionista);
@@ -62,7 +63,7 @@ class InversionistaController extends Controller
         $request->validate([
             'name' => 'required|max:255',
             'lastname' => 'required|max:255',
-            'Nacimiento' => 'required|date',
+            'Nacimiento' => 'required|max:255',
             'telefono' => 'required|max:20',
             'contraseña' => 'required|min:8',
             'correo' => 'required|email|unique:inversionistas,correo,' . $inversionista->id,
