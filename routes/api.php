@@ -3,13 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmprendedorController;
-<<<<<<< HEAD
 use App\Http\Controllers\Api\EmprendimientoController;
-use App\Http\Controllers\ResenaController; 
-=======
-use App\Http\Controllers\EmprendimientoController;
 use App\Http\Controllers\Api\ResenaController; 
->>>>>>> efdec31586b2b8728320849604d7126725c03b44
 use App\Http\Controllers\Api\InversionistaController;
 use App\Http\Controllers\Api\PublicarEmprendimientoController;
 use App\Http\Controllers\ConexionController;
