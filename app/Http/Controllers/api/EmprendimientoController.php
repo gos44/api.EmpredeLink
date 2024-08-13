@@ -1,59 +1,55 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
 use App\Models\Emprendimiento;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Illuminate\Routing\Controller as RoutingController;
 
-class EmprendimientoController extends Controller
+class EmprendimientoController extends RoutingController
 {
-    public function creates()
+    public function index()
     {
-        return view('emprender.emprendimiento');
+        $emprendimiento = Emprendimiento::all();
+        return response()->json($emprendimiento);
     }
 
     public function store(Request $request)
     {
-        $emprendimiento = new Emprendimiento();
-        $emprendimiento->nombre_emprendimiento = $request->nombre_emprendimiento;
-        $emprendimiento->descripcion = $request->descripcion;
-        $emprendimiento->especificaciones = $request->especificaciones;
-        $emprendimiento->categoria = $request->categoria;
-        $emprendimiento->save();
-        return redirect()->route('emprendimientos.index');
+        $request->validate([
+            'nombre_emprendimiento' => 'required|max:255',
+            'descripcion' => 'required|max:255',
+            'especificaciones' => 'required|max:255',
+            'categoria' => 'required|max:255',
+        ]);
+
+        $emprendimiento = Emprendimiento::create($request->all());
+        return response()->json($emprendimiento);
     }
 
-    public function index()
+    public function show($id)
     {
-        $emprendimientos = Emprendimiento::all();
-        return view('emprender.listar2', ['emprendimientos' => $emprendimientos]);
-
-        
+        $emprendimiento = Emprendimiento::findOrFail($id);
+        return response()->json($emprendimiento);
     }
 
-    public function show(Emprendimiento $emprendimiento)
+    public function update(Request $request, Emprendimiento $emprendimiento)
     {
-        return view('emprender.show2', compact('emprendimiento'));
+        $request->validate([
+            'nombre_emprendimiento' => 'required|max:255',
+            'descripcion' => 'required|max:255',
+            'especificaciones' => 'required|max:255',
+            'categoria' => 'required|max:255'.$emprendimiento->id,
+        ]);
+
+        $emprendimiento->update($request->all());
+        return response()->json($emprendimiento);
     }
 
     public function destroy(Emprendimiento $emprendimiento)
     {
         $emprendimiento->delete();
-        return redirect()->route('emprendimientos.index');
-    }
-
-    public function edit(Emprendimiento $emprendimiento)
-    {
-        return view('emprender.edit2', compact('emprendimiento'));
-    }
-
-    public function update(Request $request, Emprendimiento $emprendimiento)
-    {
-        $emprendimiento->nombre_emprendimiento = $request->nombre_emprendimiento;
-        $emprendimiento->descripcion = $request->descripcion;
-        $emprendimiento->especificaciones = $request->especificaciones;
-        $emprendimiento->categoria = $request->categoria;
-        $emprendimiento->save();
-        return redirect()->route('emprendimientos.index');
+        return response()->json(null, 204);
     }
 }

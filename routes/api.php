@@ -1,27 +1,23 @@
 <?php
 
+use App\Http\Controllers\Api\EmprendimientoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\EmprendedorController;
-use App\Http\Controllers\EmprendimientoController;
-use App\Http\Controllers\ResenaController; 
-use App\Http\Controllers\InversionistaController;
-use App\Http\Controllers\PublicarEmprendimientoController;
+use App\Http\Controllers\Api\EmprendedorController;
+
+use App\Http\Controllers\Api\ResenaController; 
+use App\Http\Controllers\Api\InversionistaController;
+use App\Http\Controllers\Api\PublicarEmprendimientoController;
 use App\Http\Controllers\ConexionController;
+
+use App\Models\Inversionista;
+use App\Models\Publicar_Emprendimiento;
+
 //use App\Http\Controllers\Api\RegisterController;
 //use App\Http\Controllers\Api\CategoryController;
 
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
+
     // Route::get('categories', [CategoryController::class,'index'])->name('api.v1.categories.index');
     // Route::post('categories', [CategoryController::class,'store'])->name('api.v1.categories.store');
     // Route::get('categories/{category}', [CategoryController::class,'show'])->name('api.v1.categories.show');
@@ -43,44 +39,59 @@ Route::get('/prueba', function () {
 
 //emprendimiento
 
-Route::get('emprendimiento/create', [EmprendimientoController::class, 'creates']);
-Route::post('emprendimiento/store', [EmprendimientoController::class, 'store'])->name('emprendimiento.store');
-Route::get('emprendimientos/listar2', [EmprendimientoController::class, 'index'])->name('emprendimientos.index');
-Route::delete('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'destroy'])->name('emprendimiento.destroy');
-Route::get('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'show'])->name('emprendimiento.show');
-Route::put('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'update'])->name('emprendimiento.update');
-Route::get('emprendimiento/{emprendimiento}/editar', [EmprendimientoController::class, 'edit'])->name('emprendimiento.edit');
+Route::get('emprendimientos', [EmprendimientoController::class, 'index'])->name('api.emprendimientos.index');
+Route::post('emprendimientos', [EmprendimientoController::class, 'store'])->name('api.emprendimientos.store');
+Route::get('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'show'])->name('api.emprendimientos.show');
+Route::put('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'update'])->name('api.emprendimientos.update');
+Route::delete('emprendimientos/{emprendimiento}', [EmprendimientoController::class, 'destroy'])->name('api.emprendimientos.destroy');
+
+// Route::get('emprendimiento/create', [EmprendimientoController::class, 'creates']);
+// Route::post('emprendimiento/store', [EmprendimientoController::class, 'store'])->name('emprendimiento.store');
+// Route::get('emprendimientos/listar2', [EmprendimientoController::class, 'index'])->name('emprendimientos.index');
+// Route::delete('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'destroy'])->name('emprendimiento.destroy');
+// Route::get('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'show'])->name('emprendimiento.show');
+// Route::put('emprendimiento/{emprendimiento}', [EmprendimientoController::class, 'update'])->name('emprendimiento.update');
+// Route::get('emprendimiento/{emprendimiento}/editar', [EmprendimientoController::class, 'edit'])->name('emprendimiento.edit');
 
 
 //plicar_emprendimiento k
 
-Route::get('/trabajo/tabla',[PublicarEmprendimientoController::class,'create']);
-Route::post('Publicar_Emprendimiento/store', [PublicarEmprendimientoController::class,'store'])->name('Publicar_Emprendimiento.store');
-Route::get('trabajo/listar',[PublicarEmprendimientoController::class,'index'])->name('trabajo.index');
-Route::get('trabajo/{trabajo}',[PublicarEmprendimientoController::class,'show'])->name('trabajo.show');
-Route::put('trabajo/{trabajo}',[PublicarEmprendimientoController::class,'update'])->name('trabajo.update');//nuevo
-Route::delete('trabajo/{trabajo}',[PublicarEmprendimientoController::class,'destroy'])->name('trabajo.destroy');
-Route::get('trabajo/{trabajo}/editar',[PublicarEmprendimientoController::class,'edit'])->name('trabajo.edit');
+// Route::get('/trabajo/tabla',[PublicarEmprendimientoController::class,'create']);
+// Route::post('Publicar_Emprendimiento/store', [PublicarEmprendimientoController::class,'store'])->name('Publicar_Emprendimiento.store');
+// Route::get('trabajo/listar',[PublicarEmprendimientoController::class,'index'])->name('trabajo.index');
+// Route::get('trabajo/{trabajo}',[PublicarEmprendimientoController::class,'show'])->name('trabajo.show');
+// Route::put('trabajo/{trabajo}',[PublicarEmprendimientoController::class,'update'])->name('trabajo.update');//nuevo
+// Route::delete('trabajo/{trabajo}',[PublicarEmprendimientoController::class,'destroy'])->name('trabajo.destroy');
+// Route::get('trabajo/{trabajo}/editar',[PublicarEmprendimientoController::class,'edit'])->name('trabajo.edit');
 
 //reseñas
 
-Route::get('resena/create',[ResenaController::class,'create']);
-Route::post('resenas/store', [ResenaController::class,'store'])->name('resenas.store');
-Route::get('resena/listar',[ResenaController::class,'index'])->name('resena.index');
-Route::get('resena/{resena}',[ResenaController::class,'show'])->name('resena.show');
-Route::put('resena/{resena}',[ResenaController::class,'update'])->name('resena.update');//nuevo
-Route::delete('resena/{resena}',[ResenaController::class,'destroy'])->name('resena.destroy');
-Route::get('resena/{resena}/editar',[ResenaController::class,'edit'])->name('resena.edit');
+// Route::get('resena/create',[ResenaController::class,'create']);
+// Route::post('resenas/store', [ResenaController::class,'store'])->name('resenas.store');
+// Route::get('resena/listar',[ResenaController::class,'index'])->name('resena.index');
+// Route::get('resena/{resena}',[ResenaController::class,'show'])->name('resena.show');
+// Route::put('resena/{resena}',[ResenaController::class,'update'])->name('resena.update');//nuevo
+// Route::delete('resena/{resena}',[ResenaController::class,'destroy'])->name('resena.destroy');
+// Route::get('resena/{resena}/editar',[ResenaController::class,'edit'])->name('resena.edit');
 
 //inversionista
 
-Route::get('inversionistas/create', [InversionistaController::class, 'create'])->name('inversionistas.create');
-Route::post('inversionistas/store', [InversionistaController::class, 'store'])->name('inversionistas.store');
-Route::get('inversionistas/listar', [InversionistaController::class, 'index'])->name('inversionistas.index');
-Route::delete('inversionistas/{inversionista}', [InversionistaController::class, 'destroy'])->name('inversionistas.destroy');
-Route::get('inversionistas/{inversionista}', [InversionistaController::class, 'show'])->name('inversionistas.show');
-Route::put('inversionistas/{inversionista}',[InversionistaController::class,'update'])->name('inversionistas.update');
-Route::get('inversionistas/{inversionista}/editar',[InversionistaController::class,'edit'])->name('inversionistas.edit');
+
+
+    Route::get('inversionistas', [InversionistaController::class, 'index'])->name('api.inversionistas.index');
+    Route::post('inversionistas', [InversionistaController::class, 'store'])->name('api.inversionistas.store');
+    Route::get('inversionistas/{inversionista}', [InversionistaController::class, 'show'])->name('api.inversionistas.show');
+    Route::put('inversionistas/{inversionista}', [InversionistaController::class, 'update'])->name('api.inversionistas.update');
+    Route::delete('inversionistas/{inversionista}', [InversionistaController::class, 'destroy'])->name('api.inversionistas.destroy');
+
+
+// Route::get('inversionistas/create', [InversionistaController::class, 'create'])->name('inversionistas.create');
+// Route::post('inversionistas/store', [InversionistaController::class, 'store'])->name('inversionistas.store');
+// Route::get('inversionistas/listar', [InversionistaController::class, 'index'])->name('inversionistas.index');
+// Route::delete('inversionistas/{inversionista}', [InversionistaController::class, 'destroy'])->name('inversionistas.destroy');
+// Route::get('inversionistas/{inversionista}', [InversionistaController::class, 'show'])->name('inversionistas.show');
+// Route::put('inversionistas/{inversionista}',[InversionistaController::class,'update'])->name('inversionistas.update');
+// Route::get('inversionistas/{inversionista}/editar',[InversionistaController::class,'edit'])->name('inversionistas.edit');
 
 //conexion (asociar)
 
@@ -88,6 +99,15 @@ Route::get('/interes/asociar', [ConexionController::class, 'asociar'])->name('in
 Route::post('/interes/store', [ConexionController::class, 'store'])->name('interes.store');
 
 
-
-
-
+//api k
+Route::get('publicar', [PublicarEmprendimientoController::class,'index'])->name('api.publicar__emprendimientos.index');
+ Route::post('publicar', [PublicarEmprendimientoController::class,'store'])->name('api.publicar__emprendimientos.store');
+ Route::get('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'show'])->name('api.publicar__emprendimientos.show');
+ Route::put('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'update'])->name('api.publicar__emprendimientos.update');
+ Route::delete('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'destroy'])->name('api.publicar__emprendimientos.delete');
+// api k
+ Route::get('resena', [ResenaController::class,'index'])->name('api.resenas.index');
+ Route::post('resena', [ResenaController::class,'store'])->name('api.resenas.store');
+ Route::get('resena/{resena}', [ResenaController::class,'show'])->name('api.resenas.show');
+ Route::put('resena/{resena}', [ResenaController::class,'update'])->name('api.resenas.update');
+ Route::delete('resena/{resena}', [ResenaController::class,'destroy'])->name('api.resenas.delete');

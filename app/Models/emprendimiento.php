@@ -9,4 +9,7 @@ class emprendimiento extends Model
 
 {
     use HasFactory;
+
+    protected $fillable = ['nombre_emprendimiento', 'descripcion', 'especificaciones', 'categoria'];
+
 }

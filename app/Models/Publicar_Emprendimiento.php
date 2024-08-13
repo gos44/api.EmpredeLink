@@ -11,5 +11,8 @@ class Publicar_Emprendimiento extends Model
     public function emprendedors (){
         return $this->hasMany(emprendedor::class);
     }
+
+
+    protected $fillable = ['name', 'last_name','phone_number','mail','description','location','url','date_exp']; //Campos que se van a asignacion masiva:
     }
 
