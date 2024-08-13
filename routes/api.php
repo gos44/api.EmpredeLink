@@ -35,7 +35,7 @@ Route::get('/prueba', function () {
     return 'prueba';
 });
 
-    Route::get('/Emprendedores', [EmprendedorController::class,'index'])->name('api.Emprendedores.index');
+    Route::get('Emprendedores', [EmprendedorController::class,'index'])->name('api.Emprendedores.index');
     Route::post('Emprendedores', [EmprendedorController::class,'store'])->name('api.Emprendedores.store');
     Route::get('Emprendedores/{Emprendedor}', [EmprendedorController::class,'show'])->name('api.Emprendedores.show');
     Route::put('Emprendedores/{Emprendedor}', [EmprendedorController::class,'update'])->name('api.Emprendedores.update');
