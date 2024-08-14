@@ -18,12 +18,12 @@ class EmprendedorController extends RoutingController
      */
     public function index()
     {
-        $Emprendedors=Emprendedor::all();
+        $Emprendedor=Emprendedor::all();
         //$categories = Category::included()->get();
         //$categories=Category::included()->filter();
         //$categories=Category::included()->filter()->sort()->get();
         //$categories=Category::included()->filter()->sort()->getOrPaginate();
-        return response()->json($Emprendedors);
+        return response()->json($Emprendedor);
     }
 
     /**
@@ -41,8 +41,11 @@ class EmprendedorController extends RoutingController
             'fecha_nacimiento'=> 'required|max:255',
             'password'=> 'required|max:255',
             'telefono'=> 'required|max:255',
+            'imagen'=> 'required|max:255',
             'correo'=> 'required|max:255',
-            'ubicacion'=> 'required|max:255'
+            'ubicacion'=> 'required|max:255',
+            'numero'=> 'required|max:255',
+
         ]);
 
         $Emprendedor = Emprendedor::create($request->all());
@@ -53,7 +56,7 @@ class EmprendedorController extends RoutingController
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Emprendedor  $Emprendedor
      * @return \Illuminate\Http\Response
      */
     public function show($id) //si se pasa $id se utiliza la comentada
@@ -73,14 +76,20 @@ class EmprendedorController extends RoutingController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Emprendedor  $Emprendedor
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Emprendedor $Emprendedor)
     {
         $request->validate([
-            'name' => 'required|max:255',
-            'slug' => 'required|max:255|unique:Emprendedors,slug,' . $Emprendedor->id,
+           'name' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'fecha_nacimiento'=> 'required|max:255',
+            'password'=> 'required|max:255',
+            'telefono'=> 'required|max:255',
+            'imagen'=> 'required|max:255',
+            'correo'=> 'required|max:255',
+            'ubicacion'=> 'required|max:255'. $Emprendedor->id,
 
         ]);
 
