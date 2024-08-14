@@ -33,6 +33,13 @@ Route::get('/prueba', function () {
     Route::put('Emprendedores/{Emprendedor}', [EmprendedorController::class,'update'])->name('api.Emprendedores.update');
     Route::delete('Emprendedores/{Emprendedor}', [EmprendedorController::class,'destroy'])->name('api.Emprendedores.delete');
 
+    /*
+    Route::get('usuario_emprededors', [usuario_emprededorController::class,'index'])->name('api.usuario_emprededor.index');
+    Route::post('usuario_emprededors', [usuario_emprededorController::class,'store'])->name('api.usuario_emprededor.store');
+    Route::get('usuario_emprededors/{usuario_emprededor}', [usuario_emprededorController::class,'show'])->name('api.usuario_emprededor.show');
+    Route::put('usuario_emprededors/{usuario_emprededor}', [usuario_emprededorController::class,'update'])->name('api.usuario_emprededor.update');
+    Route::delete('usuario_emprededors/{usuario_emprededor}', [usuario_emprededorController::class,'destroy'])->name('api.usuario_emprededor.delete');
+*/
 
 //emprendimiento
 
