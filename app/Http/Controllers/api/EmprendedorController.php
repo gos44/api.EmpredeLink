@@ -5,8 +5,10 @@ use App\Models\Emprendedor;
 use App\models\user;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Routing\Controller as RoutingController;
 
-class EmprendedorController extends Controller
+
+class EmprendedorController extends RoutingController
 {
 
    /**

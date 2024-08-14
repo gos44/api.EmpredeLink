@@ -4,7 +4,6 @@ use App\Http\Controllers\Api\EmprendimientoController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\EmprendedorController;
-
 use App\Http\Controllers\Api\ResenaController; 
 use App\Http\Controllers\Api\InversionistaController;
 use App\Http\Controllers\Api\PublicarEmprendimientoController;
@@ -15,9 +14,6 @@ use App\Models\Publicar_Emprendimiento;
 
 //use App\Http\Controllers\Api\RegisterController;
 //use App\Http\Controllers\Api\CategoryController;
-
-
-
     // Route::get('categories', [CategoryController::class,'index'])->name('api.v1.categories.index');
     // Route::post('categories', [CategoryController::class,'store'])->name('api.v1.categories.store');
     // Route::get('categories/{category}', [CategoryController::class,'show'])->name('api.v1.categories.show');
@@ -36,6 +32,7 @@ Route::get('/prueba', function () {
     Route::get('Emprendedores/{Emprendedor}', [EmprendedorController::class,'show'])->name('api.Emprendedores.show');
     Route::put('Emprendedores/{Emprendedor}', [EmprendedorController::class,'update'])->name('api.Emprendedores.update');
     Route::delete('Emprendedores/{Emprendedor}', [EmprendedorController::class,'destroy'])->name('api.Emprendedores.delete');
+
 
 //emprendimiento
 
