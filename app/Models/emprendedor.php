@@ -11,10 +11,10 @@ use Laravel\Sanctum\HasApiTokens;
 class emprendedor extends Model
 
 {
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasFactory;
 
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'lastname', 'fecha_nacimiento','password','telefono','imagen','correo','ubicacion','numero'
     ];
 
     public function Inversionistas()
