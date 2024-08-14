@@ -1,27 +1,100 @@
+
 <?php
 
-namespace App\Http\Controllers;
-use App\Models\Emprendedor;
-use App\Models\Inversionista;
+use App\Models\Emprendedor; 
+use App\models\user;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Illuminate\Routing\Controller as RoutingController;
 
-class ConexionController extends Controller
+
+class ConexionController extends RoutingController
 {
-    public function asociar()
+/*
+   /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
-        $emprendedores = Emprendedor::all();
-        $inversionistas = Inversionista::all();
-        return view('Conexion.asociar', compact('emprendedores', 'inversionistas'));
+        $Emprendedor=Emprendedor::all();
+        //$categories = Category::included()->get();
+        //$categories=Category::included()->filter();
+        //$categories=Category::included()->filter()->sort()->get();
+        //$categories=Category::included()->filter()->sort()->getOrPaginate();
+        return response()->json($Emprendedor);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
 
-            $emprededores= Emprendedor::find($request->emprendedor_id);
-            $emprededores->Inversionistas()->attach($request->inversionista_id);
+        $request->validate([
+            'emprendedors_id'=> 'require'|'exits:emprendedors','id',
+            'inversionistas_id'=> 'require'|'exits:inversionistas','id',
 
-            return 'Emprendedor e Inversionista asociados correctamente';
+        ]);
+
+        $Emprendedor = Emprendedor::create($request->all());
+
+        return response()->json($Emprendedor);
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\Emprendedor  $Emprendedor
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id) //si se pasa $id se utiliza la comentada
+    {  
+        
+       // $category = Category::findOrFail($id);
+        // $category = Category::with(['posts.user'])->findOrFail($id);
+        // $category = Category::with(['posts'])->findOrFail($id);
+        // $category = Category::included();
+        $Emprendedor = Emprendedor::included()->findOrFail($id);
+        return response()->json($Emprendedor);
+        //http://api.codersfree1.test/v1/categories/1/?included=posts.user
 
     }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Models\Emprendedor  $Emprendedor
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Emprendedor $Emprendedor)
+    {
+        $request->validate([
+          'emprendedors_id'=> 'require'|'exits:emprendedors','id',
+            'inversionistas_id'=> 'require'|'exits:inversionistas','id',$Emprendedor->id,
+
+        ]);
+
+        $Emprendedor->update($request->all());
+
+        return response()->json($Emprendedor);
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Category  $category
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Emprendedor $Emprendedor)
+    {
+        $Emprendedor->delete();
+        return response()->json($Emprendedor);
+    }
+     
 }

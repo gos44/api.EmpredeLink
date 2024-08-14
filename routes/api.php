@@ -10,8 +10,7 @@ use App\Http\Controllers\Api\InversionistaController;
 use App\Http\Controllers\Api\PublicarEmprendimientoController;
 use App\Http\Controllers\ConexionController;
 use App\Http\Controllers\Api\UsuariosInvercionistasController;
-
-
+use App\Http\Controllers\Api\UsuariosEmprendedorController;
 use App\Models\Inversionista;
 use App\Models\Publicar_Emprendimiento;
 
@@ -27,7 +26,7 @@ use App\Models\Publicar_Emprendimiento;
 //Emprendedor
 
 Route::get('/prueba', function () {
-    return 'prueba';
+    return 'prueba 1234';
 });
 
     Route::get('Emprendedores', [EmprendedorController::class,'index'])->name('api.Emprendedores.index');
@@ -36,13 +35,13 @@ Route::get('/prueba', function () {
     Route::put('Emprendedores/{Emprendedor}', [EmprendedorController::class,'update'])->name('api.Emprendedores.update');
     Route::delete('Emprendedores/{Emprendedor}', [EmprendedorController::class,'destroy'])->name('api.Emprendedores.delete');
 
-    /*
-    Route::get('usuario_emprededors', [usuario_emprededorController::class,'index'])->name('api.usuario_emprededor.index');
-    Route::post('usuario_emprededors', [usuario_emprededorController::class,'store'])->name('api.usuario_emprededor.store');
-    Route::get('usuario_emprededors/{usuario_emprededor}', [usuario_emprededorController::class,'show'])->name('api.usuario_emprededor.show');
-    Route::put('usuario_emprededors/{usuario_emprededor}', [usuario_emprededorController::class,'update'])->name('api.usuario_emprededor.update');
-    Route::delete('usuario_emprededors/{usuario_emprededor}', [usuario_emprededorController::class,'destroy'])->name('api.usuario_emprededor.delete');
-*/
+    
+    Route::get('usuario_emprendedors', [UsuariosEmprendedorController::class,'index'])->name('api.usuario_emprededors.index');
+    Route::post('usuario_emprendedors', [UsuariosEmprendedorController::class,'store'])->name('api.usuario_emprededor.store');
+    Route::get('usuario_emprendedors/{usuario_emprendedor}', [UsuariosEmprendedorController::class,'show'])->name('api.usuario_emprededor.show');
+    Route::put('usuario_emprendedors/{usuario_emprendedor}', [UsuariosEmprendedorController::class,'update'])->name('api.usuario_emprededor.update');
+    Route::delete('usuario_emprendedors/{usuario_emprendedor}', [UsuariosEmprendedorController::class,'destroy'])->name('api.usuario_emprededor.delete');
+
 
 //emprendimiento
 
@@ -102,16 +101,21 @@ Route::delete('emprendimientos/{emprendimiento}', [EmprendimientoController::cla
 
 //conexion (asociar)
 
-Route::get('/interes/asociar', [ConexionController::class, 'asociar'])->name('interes.asociar');
-Route::post('/interes/store', [ConexionController::class, 'store'])->name('interes.store');
+/*
+Route::get('conexiones', [conexionController::class, 'index'])->name('api.conexiones.index');
+Route::post('conexiones', [conexionController::class, 'store'])->name('api.conexiones.store');
+Route::get('conexiones/{conexion}', [conexionController::class, 'show'])->name('api.conexiones.show');
+Route::put('conexiones/{conexion}', [conexionController::class, 'update'])->name('api.conexiones.update');
+Route::delete('conexiones/{conexion}', [conexionController::class, 'destroy'])->name('api.conexiones.destroy');
+*/
 
 
 //api k
-Route::get('publicar', [PublicarEmprendimientoController::class,'index'])->name('api.publicar__emprendimientos.index');
- Route::post('publicar', [PublicarEmprendimientoController::class,'store'])->name('api.publicar__emprendimientos.store');
- Route::get('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'show'])->name('api.publicar__emprendimientos.show');
- Route::put('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'update'])->name('api.publicar__emprendimientos.update');
- Route::delete('publicar/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'destroy'])->name('api.publicar__emprendimientos.delete');
+Route::get('publicare', [PublicarEmprendimientoController::class,'index'])->name('api.publicar__emprendimientos.index');
+ Route::post('publicare', [PublicarEmprendimientoController::class,'store'])->name('api.publicar__emprendimientos.store');
+ Route::get('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'show'])->name('api.publicar__emprendimientos.show');
+ Route::put('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'update'])->name('api.publicar__emprendimientos.update');
+ Route::delete('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'destroy'])->name('api.publicar__emprendimientos.delete');
 // api k
  Route::get('resena', [ResenaController::class,'index'])->name('api.resenas.index');
  Route::post('resena', [ResenaController::class,'store'])->name('api.resenas.store');
@@ -121,11 +125,11 @@ Route::get('publicar', [PublicarEmprendimientoController::class,'index'])->name(
 
 
  //api k
- Route::get('publicar', [UsuariosInvercionistasController::class,'index'])->name('api.publicar__emprendimientos.index');
- Route::post('publicar', [UsuariosInvercionistasController::class,'store'])->name('api.publicar__emprendimientos.store');
- Route::get('publicar/{publicar_emprendimiento}', [UsuariosInvercionistasController::class,'show'])->name('api.publicar__emprendimientos.show');
- Route::put('publicar/{publicar_emprendimiento}', [UsuariosInvercionistasController::class,'update'])->name('api.publicar__emprendimientos.update');
- Route::delete('publicar/{publicar_emprendimiento}', [UsuariosInvercionistasController::class,'destroy'])->name('api.publicar__emprendimientos.delete');
+//  Route::get('publicarr', [UsuariosInvercionistasController::class,'index'])->name('api.publicar__emprendimientos.index');
+//  Route::post('publicarr', [UsuariosInvercionistasController::class,'store'])->name('api.publicar__emprendimientos.store');
+//  Route::get('publicarr/{publicar_emprendimiento}', [UsuariosInvercionistasController::class,'show'])->name('api.publicar__emprendimientos.show');
+//  Route::put('publicarr/{publicar_emprendimiento}', [UsuariosInvercionistasController::class,'update'])->name('api.publicar__emprendimientos.update');
+//  Route::delete('publicarr/{publicar_emprendimiento}', [UsuariosInvercionistasController::class,'destroy'])->name('api.publicar__emprendimientos.delete');
 
 
  //api k
