@@ -1,12 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\usuarios_emprendedor; 
+use App\Models\usuarios_emprendedors; 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller; 
+use Illuminate\Routing\Controller as RoutingController; 
 
 
-class UsuariosEmprendedorController extends  Controller
+class UsuariosEmprendedorController extends  RoutingController
 {
 
    /**
@@ -16,9 +16,9 @@ class UsuariosEmprendedorController extends  Controller
      */
     public function index()
     {
-        $usuarios_emprendedors=usuarios_emprendedor::all();
+        $usuario_emprendedors=usuarios_emprendedors::all();
         
-        return response()->json($usuarios_emprendedors);
+        return response()->json($usuario_emprendedors);
     }
 
     /**
@@ -31,14 +31,14 @@ class UsuariosEmprendedorController extends  Controller
     {
 
         $request->validate([
-            'emprendedors_id'=> 'require'|'exits:emprendedors','id',
-            'inversionistas_id'=> 'require'|'exits:inversionistas','id',
+            'emprendedors_id'=> 'require|exits:emprendedors,id',
+            'inversionistas_id'=> 'require|exits:inversionistas,id',
 
         ]);
         
-        $usuarios_emprendedors = usuarios_emprendedor::create($request->all());
+        $usuario_emprendedors = usuarios_emprendedors::create($request->all());
 
-        return response()->json($usuarios_emprendedors);
+        return response()->json($usuario_emprendedors);
     }
 
     /**
@@ -51,8 +51,8 @@ class UsuariosEmprendedorController extends  Controller
     {  
         
        
-        $usuarios_emprendedors = usuarios_emprendedor::included()->findOrFail($id);
-        return response()->json($usuarios_emprendedors);
+        $usuario_emprendedors = usuarios_emprendedors::included()->findOrFail($id);
+        return response()->json($usuario_emprendedors);
 
     }
 
@@ -63,17 +63,17 @@ class UsuariosEmprendedorController extends  Controller
      * @param  \App\Models\Emprendedor  $Emprendedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, usuarios_emprendedor $usuarios_emprendedors)
+    public function update(Request $request, usuarios_emprendedors $usuario_emprendedors)
     {
         $request->validate([
-          'emprendedors_id'=> 'require'|'exits:emprendedors','id',
-            'inversionistas_id'=> 'require'|'exits:inversionistas','id',$usuarios_emprendedors->id,
+          'emprendedors_id'=> 'require|exits:emprendedors,id',
+            'inversionistas_id'=> 'require|exits:inversionistas,id',$usuario_emprendedors->id,
 
         ]);
 
-        $usuarios_emprendedors->update($request->all());
+        $usuario_emprendedors->update($request->all());
 
-        return response()->json($usuarios_emprendedors);
+        return response()->json($usuario_emprendedors);
     }
 
     /**
@@ -82,9 +82,9 @@ class UsuariosEmprendedorController extends  Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(usuarios_emprendedor  $usuarios_emprendedors)
+    public function destroy(usuarios_emprendedors  $usuario_emprendedors)
     {
-        $usuarios_emprendedors->delete();
-        return response()->json($usuarios_emprendedors);
+        $usuario_emprendedors->delete();
+        return response()->json($usuario_emprendedors);
     }
 }

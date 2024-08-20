@@ -3,7 +3,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class usuarios_emprendedor extends Model
+class usuarios_emprendedors extends Model
 {
     use HasFactory;
 
