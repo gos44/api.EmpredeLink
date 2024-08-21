@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\EmprendedorController;
 use App\Http\Controllers\Api\ResenaController; 
 use App\Http\Controllers\Api\InversionistaController;
 use App\Http\Controllers\Api\PublicarEmprendimientoController;
-use App\Http\Controllers\ConexionController;
+use App\Http\Controllers\Api\ConexionController;
 use App\Http\Controllers\Api\UsuariosInvercionistasController;
 use App\Http\Controllers\Api\UsuariosEmprendedorController;
 use App\Models\Inversionista;
@@ -42,6 +42,11 @@ Route::get('/prueba', function () {
     Route::put('usuario_emprendedors/{usuario_emprendedor}', [UsuariosEmprendedorController::class,'update'])->name('api.usuario_emprededor.update');
     Route::delete('usuario_emprendedors/{usuario_emprendedor}', [UsuariosEmprendedorController::class,'destroy'])->name('api.usuario_emprededor.delete');
 
+    Route::get('conexiones', [ConexionController::class, 'index'])->name('api.conexiones.index');
+    Route::post('conexiones', [conexionController::class, 'store'])->name('api.conexiones.store');
+    Route::get('conexiones/{conexion}', [conexionController::class, 'show'])->name('api.conexiones.show');
+    Route::put('conexiones/{conexion}', [conexionController::class, 'update'])->name('api.conexiones.update');
+    Route::delete('conexiones/{conexion}', [conexionController::class, 'destroy'])->name('api.conexiones.destroy');
 
 //emprendimiento
 
@@ -101,13 +106,8 @@ Route::delete('emprendimientos/{emprendimiento}', [EmprendimientoController::cla
 
 //conexion (asociar)
 
-/*
-Route::get('conexiones', [conexionController::class, 'index'])->name('api.conexiones.index');
-Route::post('conexiones', [conexionController::class, 'store'])->name('api.conexiones.store');
-Route::get('conexiones/{conexion}', [conexionController::class, 'show'])->name('api.conexiones.show');
-Route::put('conexiones/{conexion}', [conexionController::class, 'update'])->name('api.conexiones.update');
-Route::delete('conexiones/{conexion}', [conexionController::class, 'destroy'])->name('api.conexiones.destroy');
-*/
+
+
 
 
 //api k

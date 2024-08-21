@@ -1,16 +1,14 @@
-
 <?php
 
-use App\Models\Emprendedor; 
-use App\models\user;
+namespace App\Http\Controllers\Api;
+use App\Models\Conexion; 
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
-use Illuminate\Routing\Controller as RoutingController;
+use Illuminate\Routing\Controller as RoutingController; 
 
 
-class ConexionController extends RoutingController
+class ConexionController extends  RoutingController
 {
-/*
+
    /**
      * Display a listing of the resource.
      *
@@ -18,12 +16,9 @@ class ConexionController extends RoutingController
      */
     public function index()
     {
-        $Emprendedor=Emprendedor::all();
-        //$categories = Category::included()->get();
-        //$categories=Category::included()->filter();
-        //$categories=Category::included()->filter()->sort()->get();
-        //$categories=Category::included()->filter()->sort()->getOrPaginate();
-        return response()->json($Emprendedor);
+        $usuario_emprendedors=Conexion::all();
+        
+        return response()->json($usuario_emprendedors);
     }
 
     /**
@@ -36,14 +31,15 @@ class ConexionController extends RoutingController
     {
 
         $request->validate([
-            'emprendedors_id'=> 'require'|'exits:emprendedors','id',
-            'inversionistas_id'=> 'require'|'exits:inversionistas','id',
+            'chat' => 'required|max:255',
+            'emprendedors_id'=> 'require|exits:emprendedors,id',
+            'inversionistas_id'=> 'require|exits:inversionistas,id',
 
         ]);
+        
+        $usuario_emprendedors = Conexion::create($request->all());
 
-        $Emprendedor = Emprendedor::create($request->all());
-
-        return response()->json($Emprendedor);
+        return response()->json($usuario_emprendedors);
     }
 
     /**
@@ -55,13 +51,9 @@ class ConexionController extends RoutingController
     public function show($id) //si se pasa $id se utiliza la comentada
     {  
         
-       // $category = Category::findOrFail($id);
-        // $category = Category::with(['posts.user'])->findOrFail($id);
-        // $category = Category::with(['posts'])->findOrFail($id);
-        // $category = Category::included();
-        $Emprendedor = Emprendedor::included()->findOrFail($id);
-        return response()->json($Emprendedor);
-        //http://api.codersfree1.test/v1/categories/1/?included=posts.user
+       
+        $usuario_emprendedors = Conexion::included()->findOrFail($id);
+        return response()->json($usuario_emprendedors);
 
     }
 
@@ -72,17 +64,18 @@ class ConexionController extends RoutingController
      * @param  \App\Models\Emprendedor  $Emprendedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Emprendedor $Emprendedor)
+    public function update(Request $request, Conexion $usuario_emprendedors)
     {
         $request->validate([
-          'emprendedors_id'=> 'require'|'exits:emprendedors','id',
-            'inversionistas_id'=> 'require'|'exits:inversionistas','id',$Emprendedor->id,
+        'chat' => 'required|max:255',
+        'emprendedors_id'=> 'require|exits:emprendedors,id',
+        'inversionistas_id'=> 'require|exits:inversionistas,id',$usuario_emprendedors->id,
 
         ]);
 
-        $Emprendedor->update($request->all());
+        $usuario_emprendedors->update($request->all());
 
-        return response()->json($Emprendedor);
+        return response()->json($usuario_emprendedors);
     }
 
     /**
@@ -91,10 +84,9 @@ class ConexionController extends RoutingController
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Emprendedor $Emprendedor)
+    public function destroy(Conexion  $usuario_emprendedors)
     {
-        $Emprendedor->delete();
-        return response()->json($Emprendedor);
+        $usuario_emprendedors->delete();
+        return response()->json($usuario_emprendedors);
     }
-     
 }
