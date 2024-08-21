@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Conexion extends Model
 {
     use HasFactory;
-    protected $fillable = ['chat','inversionistas_id','emprendedors_id']; 
+    protected $primaryKey = 'id_conexion';
 
+    protected $fillable = ['chat', 'emprendedors_id', 'inversionistas_id'];
 }
