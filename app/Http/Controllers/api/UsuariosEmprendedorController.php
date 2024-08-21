@@ -1,24 +1,23 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Models\usuarios_emprendedors; 
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as RoutingController; 
 
-
-class UsuariosEmprendedorController extends  RoutingController
+class UsuariosEmprendedorController extends RoutingController
 {
-
-   /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $usuario_emprendedors=usuarios_emprendedors::all();
+        $usuariosEmprendedores = usuarios_emprendedors::all();
         
-        return response()->json($usuario_emprendedors);
+        return response()->json($usuariosEmprendedores);
     }
 
     /**
@@ -29,62 +28,56 @@ class UsuariosEmprendedorController extends  RoutingController
      */
     public function store(Request $request)
     {
-
         $request->validate([
-            'emprendedors_id'=> 'require|exits:emprendedors,id',
-            'inversionistas_id'=> 'require|exits:inversionistas,id',
-
+            'emprendedors_id' => 'required|exists:emprendedors,id',
+            'inversionistas_id' => 'required|exists:inversionistas,id',
         ]);
         
-        $usuario_emprendedors = usuarios_emprendedors::create($request->all());
+        $usuariosEmprendedor = usuarios_emprendedors::create($request->all());
 
-        return response()->json($usuario_emprendedors);
+        return response()->json($usuariosEmprendedor);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Emprendedor  $Emprendedor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) //si se pasa $id se utiliza la comentada
+    public function show($id)
     {  
-        
-       
-        $usuario_emprendedors = usuarios_emprendedors::included()->findOrFail($id);
-        return response()->json($usuario_emprendedors);
-
+        $usuariosEmprendedor = usuarios_emprendedors::findOrFail($id);
+        return response()->json($usuariosEmprendedor);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Emprendedor  $Emprendedor
+     * @param  \App\Models\UsuariosEmprendedor  $usuariosEmprendedor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, usuarios_emprendedors $usuario_emprendedors)
+    public function update(Request $request, usuarios_emprendedors $usuariosEmprendedor)
     {
         $request->validate([
-          'emprendedors_id'=> 'require|exits:emprendedors,id',
-            'inversionistas_id'=> 'require|exits:inversionistas,id',$usuario_emprendedors->id,
-
+            'emprendedors_id' => 'required|exists:emprendedors,id',
+            'inversionistas_id' => 'required|exists:inversionistas,id',
         ]);
 
-        $usuario_emprendedors->update($request->all());
+        $usuariosEmprendedor->update($request->all());
 
-        return response()->json($usuario_emprendedors);
+        return response()->json($usuariosEmprendedor);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\UsuariosEmprendedor  $usuariosEmprendedor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(usuarios_emprendedors  $usuario_emprendedors)
+    public function destroy(usuarios_emprendedors $usuariosEmprendedor)
     {
-        $usuario_emprendedors->delete();
-        return response()->json($usuario_emprendedors);
+        $usuariosEmprendedor->delete();
+        return response()->json($usuariosEmprendedor);
     }
 }

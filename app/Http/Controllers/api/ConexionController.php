@@ -1,24 +1,22 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-use App\Models\Conexion; 
+
+use App\Models\Conexion;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller as RoutingController; 
+use Illuminate\Routing\Controller as RoutingController;
 
-
-class ConexionController extends  RoutingController
+class ConexionController extends RoutingController
 {
-
-   /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        $usuario_emprendedors=Conexion::all();
-        
-        return response()->json($usuario_emprendedors);
+        $conexiones = Conexion::all();
+        return response()->json($conexiones);
     }
 
     /**
@@ -29,64 +27,59 @@ class ConexionController extends  RoutingController
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'chat' => 'required|max:255',
-            'emprendedors_id'=> 'require|exits:emprendedors,id',
-            'inversionistas_id'=> 'require|exits:inversionistas,id',
-
+            'emprendedors_id' => 'required|exists:emprendedors,id',
+            'inversionistas_id' => 'required|exists:inversionistas,id',
         ]);
-        
-        $usuario_emprendedors = Conexion::create($request->all());
 
-        return response()->json($usuario_emprendedors);
+        $conexion = Conexion::create($request->all());
+
+        return response()->json($conexion);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Emprendedor  $Emprendedor
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) //si se pasa $id se utiliza la comentada
-    {  
-        
-       
-        $usuario_emprendedors = Conexion::included()->findOrFail($id);
-        return response()->json($usuario_emprendedors);
+    public function show($id_conexion)
+    {
 
+        $conexion = Conexion::findOrFail($id_conexion);
+        return response()->json($conexion);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Emprendedor  $Emprendedor
+     * @param  \App\Models\Conexion  $conexion
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Conexion $usuario_emprendedors)
+    public function update(Request $request, Conexion $conexion)
     {
         $request->validate([
-        'chat' => 'required|max:255',
-        'emprendedors_id'=> 'require|exits:emprendedors,id',
-        'inversionistas_id'=> 'require|exits:inversionistas,id',$usuario_emprendedors->id,
-
+            'chat' => 'required|max:255',
+            'emprendedors_id' => 'required|exists:emprendedors,id',
+            'inversionistas_id' => 'required|exists:inversionistas,id',
         ]);
 
-        $usuario_emprendedors->update($request->all());
+        $conexion->update($request->all());
 
-        return response()->json($usuario_emprendedors);
+        return response()->json($conexion);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Category  $category
+     * @param  \App\Models\Conexion  $conexion
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Conexion  $usuario_emprendedors)
+    public function destroy(Conexion $conexion)
     {
-        $usuario_emprendedors->delete();
-        return response()->json($usuario_emprendedors);
+        $conexion->delete();
+        return response()->json($conexion);
     }
 }
