@@ -16,8 +16,8 @@ class PublicarEmprendimientoController extends RoutingController
      */
     public function index()
     {
-        $publicar_emprendimiento=Publicar_Emprendimiento::all();
-        // $categories = Category::included()->get();
+       // $publicar_emprendimiento=Publicar_Emprendimiento::all();
+        $publicar_emprendimiento = Publicar_Emprendimiento::included()->get();
         // $categories=Category::included()->filter();
         // $categories=Category::included()->filter()->sort()->get();
         // $categories=Category::included()->filter()->sort()->getOrPaginate();
