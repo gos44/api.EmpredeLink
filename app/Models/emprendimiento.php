@@ -12,102 +12,109 @@ class Emprendimiento extends Model
 
     protected $fillable = [
         'nombre_emprendimiento', 'descripcion', 'especificaciones', 'categoria'
-    ]; // Campos para asignación masiva.
+    ];
 
-    protected $allowIncluded = ['inversionistas']; // Relación permitida para incluir.
-    protected $allowFilter = ['id', 'nombre_emprendimiento', 'categoria']; // Campos permitidos para filtrar.
-    protected $allowSort = ['id', 'nombre_emprendimiento', 'categoria']; // Campos permitidos para ordenar.
+    protected $allowIncluded = [
+        'inversionista', 'emprendedor', 'publicar_emprendimiento', 'crear_resenas'
+    ];
 
-    // // Relación muchos a muchos con Inversionistas
+    protected $allowFilter = ['id', 'nombre_emprendimiento', 'categoria'];
 
-    public function emprendedor (){
-        return $this->belongsTo(emprendedor::class);
+    protected $allowSort = ['id', 'nombre_emprendimiento', 'categoria'];
+
+    // Relaciones
+
+    public function emprendedor()
+    {
+        return $this->belongsTo(Emprendedor::class);
     }
 
-    public function Publicar_Emprendimiento (){
+    public function Publicar_Emprendimiento()
+    {
         return $this->belongsTo(Publicar_Emprendimiento::class);
     }
 
-    public function inversionista (){
+    public function inversionista()
+    {
         return $this->belongsTo(Inversionista::class);
     }
 
-    public function crear_resenas (){
-        return $this->hasMany(crear_resenas::class);
-    }  
+    public function crear_resenas()
+    {
+        return $this->hasMany(Crear_resenas::class);
+    }
 
-    // // Scope para incluir relaciones
-    // public function scopeIncluded(Builder $query)
-    // {
-    //     if (empty($this->allowIncluded) || empty(request('included'))) {
-    //         return;
-    //     }
+    // Scope para incluir relaciones
+    public function scopeIncluded(Builder $query)
+    {
+        if (empty($this->allowIncluded) || empty(request('included'))) {
+            return;
+        }
 
-    //     $relations = explode(',', request('included'));
-    //     $allowIncluded = collect($this->allowIncluded);
+        $relations = explode(',', request('included'));
+        $allowIncluded = collect($this->allowIncluded);
 
-    //     foreach ($relations as $key => $relationship) {
-    //         if (!$allowIncluded->contains($relationship)) {
-    //             unset($relations[$key]);
-    //         }
-    //     }
+        foreach ($relations as $key => $relationship) {
+            if (!$allowIncluded->contains($relationship)) {
+                unset($relations[$key]);
+            }
+        }
 
-    //     $query->with($relations);
-    // }
+        $query->with($relations);
+    }
 
-    // // Scope para filtrar resultados
-    // public function scopeFilter(Builder $query)
-    // {
-    //     if (empty($this->allowFilter) || empty(request('filter'))) {
-    //         return;
-    //     }
+    // Scope para filtrar resultados
+    public function scopeFilter(Builder $query)
+    {
+        if (empty($this->allowFilter) || empty(request('filter'))) {
+            return;
+        }
 
-    //     $filters = request('filter');
-    //     $allowFilter = collect($this->allowFilter);
+        $filters = request('filter');
+        $allowFilter = collect($this->allowFilter);
 
-    //     foreach ($filters as $filter => $value) {
-    //         if ($allowFilter->contains($filter)) {
-    //             $query->where($filter, 'LIKE', '%' . $value . '%');
-    //         }
-    //     }
-    // }
+        foreach ($filters as $filter => $value) {
+            if ($allowFilter->contains($filter)) {
+                $query->where($filter, 'LIKE', '%' . $value . '%');
+            }
+        }
+    }
 
-    // // Scope para ordenar resultados
-    // public function scopeSort(Builder $query)
-    // {
-    //     if (empty($this->allowSort) || empty(request('sort'))) {
-    //         return;
-    //     }
+    // Scope para ordenar resultados
+    public function scopeSort(Builder $query)
+    {
+        if (empty($this->allowSort) || empty(request('sort'))) {
+            return;
+        }
 
-    //     $sortFields = explode(',', request('sort'));
-    //     $allowSort = collect($this->allowSort);
+        $sortFields = explode(',', request('sort'));
+        $allowSort = collect($this->allowSort);
 
-    //     foreach ($sortFields as $sortField) {
-    //         $direction = 'asc';
+        foreach ($sortFields as $sortField) {
+            $direction = 'asc';
 
-    //         if (substr($sortField, 0, 1) == '-') {
-    //             $direction = 'desc';
-    //             $sortField = substr($sortField, 1);
-    //         }
+            if (substr($sortField, 0, 1) == '-') {
+                $direction = 'desc';
+                $sortField = substr($sortField, 1);
+            }
 
-    //         if ($allowSort->contains($sortField)) {
-    //             $query->orderBy($sortField, $direction);
-    //         }
-    //     }
-    // }
+            if ($allowSort->contains($sortField)) {
+                $query->orderBy($sortField, $direction);
+            }
+        }
+    }
 
-    // // Scope para obtener todos los registros o paginarlos
-    // public function scopeGetOrPaginate(Builder $query)
-    // {
-    //     if (request('perPage')) {
-    //         $perPage = intval(request('perPage'));
+    // Scope para obtener todos los registros o paginarlos
+    public function scopeGetOrPaginate(Builder $query)
+    {
+        if (request('perPage')) {
+            $perPage = intval(request('perPage'));
 
-    //         if ($perPage) {
-    //             return $query->paginate($perPage);
-    //         }
-    //     }
+            if ($perPage) {
+                return $query->paginate($perPage);
+            }
+        }
 
-    //     return $query->get();
-    // }
+        return $query->get();
+    }
 }
-

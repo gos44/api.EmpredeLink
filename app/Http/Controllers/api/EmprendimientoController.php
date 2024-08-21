@@ -11,12 +11,7 @@ class EmprendimientoController extends RoutingController
 {
     public function index()
     {
-        $emprendimientos = Emprendimiento::all(); 
-        // Puedes usar filtros, ordenamientos, etc. como se muestra en los ejemplos comentados:
-        // $emprendimientos = Emprendimiento::included()->get();
-        // $emprendimientos = Emprendimiento::included()->filter();
-        // $emprendimientos = Emprendimiento::included()->filter()->sort()->get();
-        // $emprendimientos = Emprendimiento::included()->filter()->sort()->getOrPaginate();
+        $emprendimientos = Emprendimiento::included()->get();
 
         return response()->json($emprendimientos);
     }
@@ -41,13 +36,10 @@ class EmprendimientoController extends RoutingController
 
     public function show($id)
     {
-        // Se pueden incluir relaciones en la consulta, como se muestra en los ejemplos comentados:
-        // $emprendimiento = Emprendimiento::with(['relacion1', 'relacion2'])->findOrFail($id);
-        // $emprendimiento = Emprendimiento::included()->findOrFail($id);
+        $emprendimiento = Emprendimiento::included()->findOrFail($id);
+        
 
-        $emprendimiento = Emprendimiento::findOrFail($id);
         return response()->json($emprendimiento);
-        // Ejemplo de ruta: http://api.ejemplo.test/v1/emprendimientos/1/?included=relacion1,relacion2
     }
 
     public function edit(Emprendimiento $emprendimiento)
@@ -74,4 +66,3 @@ class EmprendimientoController extends RoutingController
         return response()->json(null, 204);
     }
 }
-
