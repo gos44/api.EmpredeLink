@@ -17,12 +17,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->date('fecha_nacimiento');
-            $table->string('password');  
+            $table->string('password');
             $table->integer('telefono');
             $table->string('imagen');
             $table->string('correo');
             $table->string('ubicacion');
-            $table->integer('numero'); 
+            $table->integer('numero');
             $table->rememberToken();
             $table->timestamps();
         });
