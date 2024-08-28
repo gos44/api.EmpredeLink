@@ -12,7 +12,7 @@ class Publicar_Emprendimiento extends Model
     use HasFactory;
 
     public function emprendimiento (){
-        return $this->belongsTo(emprendimiento::class);
+        return $this->hasMany(emprendimiento::class);
     }
 
     public function emprendedors(){
