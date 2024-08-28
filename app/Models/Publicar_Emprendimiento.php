@@ -11,19 +11,19 @@ class Publicar_Emprendimiento extends Model
 {
     use HasFactory;
 
-    public function emprendimientos (){
+    public function emprendimiento (){
         return $this->belongsTo(emprendimiento::class);
     }
 
-    public function emprendedors (){
-        return $this->hasMany(emprendedor::class);
+    public function emprendedor(){
+        return $this->belongsTo(emprendedor::class);
     }
 
 
     //Campos que se van a asignacion masiva:
 
     protected $fillable = ['name', 'last_name','phone_number','mail','description','location','url','date_exp'];
-    protected $allowIncluded = ['emprendedors'];//las posibles Querys que se pueden realizar
+    protected $allowIncluded = ['emprendedor'];//las posibles Querys que se pueden realizar
 
 
     public function scopeIncluded(Builder $query)
