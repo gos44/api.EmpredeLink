@@ -13,6 +13,6 @@ class Publicar_Emprendimiento extends Model
     }
 
 
-    protected $fillable = ['name', 'last_name','phone_number','mail','description','location','url','date_exp']; //Campos que se van a asignacion masiva:
+    protected $fillable = ['name','phone_number','mail','description','location','url','date_exp']; //Campos que se van a asignacion masiva:
     }
 
