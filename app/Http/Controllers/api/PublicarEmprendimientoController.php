@@ -10,7 +10,11 @@ class PublicarEmprendimientoController extends RoutingController
 {
     public function index()
     {
+        $publicar_emprendimiento=Publicar_Emprendimiento::all();
         $publicarEmprendimiento = Publicar_Emprendimiento::included()->get();
+        $publicarEmprendimiento=Publicar_Emprendimiento::included()->filter();
+        // $categories=Category::included()->filter()->sort()->get();
+        // $categories=Category::included()->filter()->sort()->getOrPaginate();
         return response()->json($publicarEmprendimiento);
     }
 
@@ -18,7 +22,6 @@ class PublicarEmprendimientoController extends RoutingController
     {
         $request->validate([
             'name' => 'required|max:255',
-            'last_name' => 'required|max:255',
             'phone_number' => 'required|max:255',
             'mail' => 'required|max:255',
             'description' => 'required|max:255',
@@ -41,7 +44,6 @@ class PublicarEmprendimientoController extends RoutingController
     {
         $request->validate([
             'name' => 'required|max:255',
-            'last_name' => 'required|max:255',
             'phone_number' => 'required|max:255',
             'mail' => 'required|max:255',
             'description' => 'required|max:255',

@@ -15,8 +15,8 @@ class ResenaController extends RoutingController
      */
     public function index()
     {
-        $resena=Resena::all();
-        // $categories = Category::included()->get();
+        //$resena=Resena::all();
+        $resena = Resena::included()->get();
         // $categories=Category::included()->filter();
         // $categories=Category::included()->filter()->sort()->get();
         // $categories=Category::included()->filter()->sort()->getOrPaginate();
