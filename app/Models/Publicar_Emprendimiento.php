@@ -11,8 +11,8 @@ class Publicar_Emprendimiento extends Model
 {
     use HasFactory;
 
-    public function emprendimiento (){
-        return $this->belongsTo(emprendimiento::class);
+    public function emprendimientos (){
+        return $this->hasMany(emprendimiento::class);
     }
 
     public function emprendedor(){
@@ -34,7 +34,7 @@ class Publicar_Emprendimiento extends Model
             return;
         }
 
-        
+
         $relations = explode(',', request('included'));
          //['posts','relation2']//recuperamos el valor de la variable included y separa sus valores por una coma
          // return $relations;

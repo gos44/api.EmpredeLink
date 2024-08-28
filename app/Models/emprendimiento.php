@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
-class Emprendimiento extends Model
+class emprendimiento extends Model
 {
     use HasFactory;
 
@@ -44,6 +44,7 @@ class Emprendimiento extends Model
         return $this->hasMany(Crear_resenas::class);
     }
 
+    
     // Scope para incluir relaciones
     public function scopeIncluded(Builder $query)
     {
