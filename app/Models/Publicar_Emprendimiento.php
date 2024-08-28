@@ -15,7 +15,7 @@ class Publicar_Emprendimiento extends Model
         return $this->belongsTo(emprendimiento::class);
     }
 
-    public function emprendedor(){
+    public function emprendedors(){
         return $this->belongsTo(emprendedor::class);
     }
 
@@ -23,7 +23,7 @@ class Publicar_Emprendimiento extends Model
     //Campos que se van a asignacion masiva:
 
     protected $fillable = ['name', 'last_name','phone_number','mail','description','location','url','date_exp'];
-    protected $allowIncluded = ['emprendedor'];//las posibles Querys que se pueden realizar
+    protected $allowIncluded = ['emprendedors'];//las posibles Querys que se pueden realizar
 
 
     public function scopeIncluded(Builder $query)

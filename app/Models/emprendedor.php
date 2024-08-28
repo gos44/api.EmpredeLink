@@ -22,7 +22,7 @@ class emprendedor extends Model
         return $this->belongsToMany(Inversionista::class);
     }
 
-    public function publicar_emprendimiento (){
-        return $this->belongsTo(publicar_emprendimiento::class);
+    public function publicar_emprendimientos (){
+        return $this->hasMany(publicar_emprendimiento::class);
     }
 }
