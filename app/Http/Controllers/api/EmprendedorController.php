@@ -18,8 +18,8 @@ class EmprendedorController extends RoutingController
      */
     public function index()
     {
-        $Emprendedor=Emprendedor::all();
-        //$categories = Category::included()->get();
+        //$Emprendedor=Emprendedor::all();
+        $Emprendedor = Emprendedor::included()->get();
         //$categories=Category::included()->filter();
         //$categories=Category::included()->filter()->sort()->get();
         //$categories=Category::included()->filter()->sort()->getOrPaginate();
