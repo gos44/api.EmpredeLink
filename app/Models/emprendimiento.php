@@ -44,7 +44,7 @@ class emprendimiento extends Model
         return $this->hasMany(Crear_resenas::class);
     }
 
-    
+
     // Scope para incluir relaciones
     public function scopeIncluded(Builder $query)
     {

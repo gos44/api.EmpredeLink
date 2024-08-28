@@ -24,16 +24,16 @@ class Inversionista extends Model
 
     
     public function usuarios_invercionistas(){
-        return $this->hasMany(usuarios_invercionista::class);
+        return $this->hasMany(usuarios_invercionistas::class);
     }
 
     public function resenas(){
         return $this->hasMany(Resena::class);
     }
 
-    public function usuario_inversionistas (){
-        return $this->hasMany(Usuario_inversionista::class);
-    }
+    // public function usuario_inversionistas (){
+    //     return $this->hasMany(Usuario_inversionista::class);
+    // }
 
     public function crear_resenas(){
         return $this->hasMany(Crear_resenas::class);
