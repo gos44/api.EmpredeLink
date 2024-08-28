@@ -17,8 +17,8 @@ class CrearResenasController extends RoutingController
      */
     public function index()
     {
-        $cear_resena=crear_resenas::all();
-        // $categories = Category::included()->get();
+        //$cear_resena=crear_resenas::all();
+         $cear_resena = crear_resenas::included()->get();
         // $categories=Category::included()->filter();
         // $categories=Category::included()->filter()->sort()->get();
         // $categories=Category::included()->filter()->sort()->getOrPaginate();

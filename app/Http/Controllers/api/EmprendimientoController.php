@@ -11,8 +11,14 @@ class EmprendimientoController extends RoutingController
 {
     public function index()
     {
-        $emprendimiento = Emprendimiento::all();
-        return response()->json($emprendimiento);
+        $emprendimientos = Emprendimiento::included()->get();
+
+        return response()->json($emprendimientos);
+    }
+
+    public function create()
+    {
+        return view('Emprendimiento.create');
     }
 
     public function store(Request $request)
@@ -30,8 +36,15 @@ class EmprendimientoController extends RoutingController
 
     public function show($id)
     {
-        $emprendimiento = Emprendimiento::findOrFail($id);
+        $emprendimiento = Emprendimiento::included()->findOrFail($id);
+        
+
         return response()->json($emprendimiento);
+    }
+
+    public function edit(Emprendimiento $emprendimiento)
+    {
+        return view('Emprendimiento.edit', compact('emprendimiento'));
     }
 
     public function update(Request $request, Emprendimiento $emprendimiento)
@@ -40,7 +53,7 @@ class EmprendimientoController extends RoutingController
             'nombre_emprendimiento' => 'required|max:255',
             'descripcion' => 'required|max:255',
             'especificaciones' => 'required|max:255',
-            'categoria' => 'required|max:255'.$emprendimiento->id,
+            'categoria' => 'required|max:255',
         ]);
 
         $emprendimiento->update($request->all());

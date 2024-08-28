@@ -23,8 +23,17 @@ return new class extends Migration
             ->references('id')
             ->on('emprendedors')->onDelete('cascade');
 
-            
+            $table->unsignedBigInteger('publicar__emprendimientos_id')->nullable();
+            $table->foreign('publicar__emprendimientos_id')
+            ->references('id')
+            ->on('publicar__emprendimientos')->onDelete('cascade');
 
+            $table->unsignedBigInteger('inversionista_id')->nullable();
+            $table->foreign('inversionista_id')
+            ->references('id')
+            ->on('inversionistas')->onDelete('cascade');
+
+            
             $table->timestamps();
         });
     }

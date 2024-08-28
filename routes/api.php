@@ -97,17 +97,17 @@ Route::delete('emprendimientos/{emprendimiento}', [EmprendimientoController::cla
 
 
 //api k
-Route::get('publicare', [PublicarEmprendimientoController::class,'index'])->name('api.publicar__emprendimientos.index');
- Route::post('publicare', [PublicarEmprendimientoController::class,'store'])->name('api.publicar__emprendimientos.store');
- Route::get('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'show'])->name('api.publicar__emprendimientos.show');
- Route::put('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'update'])->name('api.publicar__emprendimientos.update');
- Route::delete('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'destroy'])->name('api.publicar__emprendimientos.delete');
+    Route::get('publicare', [PublicarEmprendimientoController::class,'index'])->name('api.publicar__emprendimientos.index');
+    Route::post('publicare', [PublicarEmprendimientoController::class,'store'])->name('api.publicar__emprendimientos.store');
+    Route::get('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'show'])->name('api.publicar__emprendimientos.show');
+    Route::put('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'update'])->name('api.publicar__emprendimientos.update');
+    Route::delete('publicare/{publicar_emprendimiento}', [PublicarEmprendimientoController::class,'destroy'])->name('api.publicar__emprendimientos.delete');
 // api k
- Route::get('resena', [ResenaController::class,'index'])->name('api.resenas.index');
- Route::post('resena', [ResenaController::class,'store'])->name('api.resenas.store');
- Route::get('resena/{resena}', [ResenaController::class,'show'])->name('api.resenas.show');
- Route::put('resena/{resena}', [ResenaController::class,'update'])->name('api.resenas.update');
- Route::delete('resena/{resena}', [ResenaController::class,'destroy'])->name('api.resenas.delete');
+    Route::get('resena', [ResenaController::class,'index'])->name('api.resenas.index');
+    Route::post('resena', [ResenaController::class,'store'])->name('api.resenas.store');
+    Route::get('resena/{resena}', [ResenaController::class,'show'])->name('api.resenas.show');
+    Route::put('resena/{resena}', [ResenaController::class,'update'])->name('api.resenas.update');
+    Route::delete('resena/{resena}', [ResenaController::class,'destroy'])->name('api.resenas.delete');
 
 
  //api k
