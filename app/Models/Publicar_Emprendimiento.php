@@ -20,10 +20,10 @@ class Publicar_Emprendimiento extends Model
     }
 
 
-    protected $allowIncluded = ['emprendedors', 'emprendedors.resenas', 'inversionistas', 'resenas', 'publicar_emprendimiento', 'Conexion', 'categorias', 'users'];//las posibles Querys que se pueden realizar
+    //Campos que se van a asignacion masiva:
 
     protected $fillable = ['name', 'last_name','phone_number','mail','description','location','url','date_exp'];
-    //Campos que se van a asignacion masiva:
+    protected $allowIncluded = ['emprendedors'];//las posibles Querys que se pueden realizar
 
 
     public function scopeIncluded(Builder $query)

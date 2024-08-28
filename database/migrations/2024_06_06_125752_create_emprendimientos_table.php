@@ -34,9 +34,6 @@ return new class extends Migration
             ->on('inversionistas')->onDelete('cascade');
 
             
-
-            
-
             $table->timestamps();
         });
     }
