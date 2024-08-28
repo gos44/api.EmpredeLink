@@ -11,8 +11,8 @@ class Publicar_Emprendimiento extends Model
 {
     use HasFactory;
 
-    public function emprendimiento (){
-        return $this->belongsTo(emprendimiento::class);
+    public function emprendimientos(){
+        return $this->hasMany(emprendimiento::class);
     }
 
     public function emprendedors(){
@@ -22,10 +22,14 @@ class Publicar_Emprendimiento extends Model
 
     //Campos que se van a asignacion masiva:
 
-    protected $fillable = ['name', 'last_name','phone_number','mail','description','location','url','date_exp'];
+    protected $fillable = ['name','phone_number','mail','description','location','url','date_exp'];
     protected $allowIncluded = ['emprendedors'];//las posibles Querys que se pueden realizar
 
+    protected $allowFilter = ['id', 'name'];
 
+    protected $allowSort = ['id', 'name'];
+
+    // Scope para incluir relaciones
     public function scopeIncluded(Builder $query)
     {
 
@@ -54,8 +58,63 @@ class Publicar_Emprendimiento extends Model
 
         //http://api.EmpredeLink/api/categories?included=posts
 
-
     }
 
+     // Scope para filtrar resultados
+    public function scopeFilter(Builder $query)
+        {
+            if (empty($this->allowFilter) || empty(request('filter'))) {
+                return;
+            }
+    
+            $filters = request('filter');
+            $allowFilter = collect($this->allowFilter);
+    
+            foreach ($filters as $filter => $value) {
+                if ($allowFilter->contains($filter)) {
+                    $query->where($filter, 'LIKE', '%' . $value . '%');
+                }
+            }
+        }
+// Scope para ordenar resultados
+public function scopeSort(Builder $query)
+{
+    if (empty($this->allowSort) || empty(request('sort'))) {
+        return;
     }
+
+    $sortFields = explode(',', request('sort'));
+    $allowSort = collect($this->allowSort);
+
+    foreach ($sortFields as $sortField) {
+        $direction = 'asc';
+
+        if (substr($sortField, 0, 1) == '-') {
+            $direction = 'desc';
+            $sortField = substr($sortField, 1);
+        }
+
+        if ($allowSort->contains($sortField)) {
+            $query->orderBy($sortField, $direction);
+        }
+    }
+}
+
+// Scope para obtener todos los registros o paginarlos
+public function scopeGetOrPaginate(Builder $query)
+{
+    if (request('perPage')) {
+        $perPage = intval(request('perPage'));
+
+        if ($perPage) {
+            return $query->paginate($perPage);
+        }
+    }
+
+    return $query->get();
+}
+
+
+
+}
 
