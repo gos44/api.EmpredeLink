@@ -15,7 +15,7 @@ class Emprendimiento extends Model
     ];
 
     protected $allowIncluded = [
-        'inversionista', 'emprendedor', 'publicar_emprendimiento', 'crear_resenas'
+        'inversionista', 'emprendedor', 'publicar_emprendimientos', 'crear_resenas'
     ];
 
     protected $allowFilter = ['id', 'nombre_emprendimiento', 'categoria'];
@@ -29,7 +29,7 @@ class Emprendimiento extends Model
         return $this->belongsTo(Emprendedor::class);
     }
 
-    public function Publicar_Emprendimiento()
+    public function Publicar_Emprendimientos()
     {
         return $this->belongsTo(Publicar_Emprendimiento::class);
     }

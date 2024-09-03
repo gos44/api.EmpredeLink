@@ -11,7 +11,7 @@ class Publicar_Emprendimiento extends Model
 {
     use HasFactory;
 
-    public function emprendimiento (){
+    public function emprendimientos (){
         return $this->hasMany(emprendimiento::class);
     }
 
