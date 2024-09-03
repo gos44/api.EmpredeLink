@@ -4,27 +4,25 @@ namespace App\Models;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Facades\App;
 
-  
+
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class crear_resenas extends Model
 {
     use HasFactory;
-   
-      
     public function inversionista()
     {
         return $this->belongsTo(Inversionista::class);
     }
 
-   
+
     public function emprendimiento()
     {
         return $this->belongsTo(Emprendimiento::class);
     }
 
-   
+
     protected $fillable = ['qualification', 'comment'];
 
     // Lista blanca de relaciones permitidas para incluir en las consultas
@@ -49,7 +47,7 @@ class crear_resenas extends Model
 
         return $query->with($relations); // Incluir relaciones permitidas en la consulta
     }
-      
+
 
        // http://api.Empredelink/api/cear_resena?included=emprendimiento
 }

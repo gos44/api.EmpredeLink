@@ -17,10 +17,13 @@ return new class extends Migration
             $table->string('name');
             $table->string('lastname');
             $table->date('Nacimiento');
-            $table->integer('telefono');
+            $table->integer('numero_inv');
             $table->string('contraseña');
+            $table->integer('documento');
+            $table->integer('telefono');
+            $table->integer('imagen');
             $table->string('correo');
-            $table->string('ubicacion');    
+            $table->string('ubicacion');
 
             $table->timestamps();
 

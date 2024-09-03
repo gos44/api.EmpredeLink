@@ -15,17 +15,21 @@ class Publicar_Emprendimiento extends Model
         return $this->hasMany(emprendimiento::class);
     }
 
-    public function emprendedors(){
-        return $this->belongsTo(emprendedor::class);
+    public function emprendedor(){
+        return $this->belongsTo(Emprendedor::class);
     }
 
 
     //Campos que se van a asignacion masiva:
 
-    protected $fillable = ['name', 'last_name','phone_number','mail','description','location','url','date_exp'];
+    protected $fillable = ['name','phone_number','mail','description','location','url','date_exp'];
     protected $allowIncluded = ['emprendedors'];//las posibles Querys que se pueden realizar
 
+    protected $allowFilter = ['id', 'name'];
 
+    protected $allowSort = ['id', 'name'];
+
+    // Scope para incluir relaciones
     public function scopeIncluded(Builder $query)
     {
 
@@ -34,7 +38,7 @@ class Publicar_Emprendimiento extends Model
             return;
         }
 
-        
+
         $relations = explode(',', request('included'));
          //['posts','relation2']//recuperamos el valor de la variable included y separa sus valores por una coma
          // return $relations;

@@ -10,14 +10,6 @@ class Resena extends Model
 {
     use HasFactory;
 
-    public function enterprising (){
-        return $this->belongsTo(emprendedor::class);
-    }
-
-    public function investor (){
-        return $this->belongsTo(Inversionista::class);
-    }
-
     protected $fillable = ['qualification', 'comment']; //Campos que se van a asignacion masiva:
 
 

@@ -21,6 +21,8 @@ class Inversionista extends Model
 
     // // Relación muchos a muchos con Emprendedores
 
+
+    
     public function usuarios_invercionistas(){
         return $this->hasMany(usuarios_invercionistas::class);
     }
